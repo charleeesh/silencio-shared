@@ -1,6 +1,6 @@
 {
   "name": "silencio-shared",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "description": "Silencio Finance Hub shared design system — AppShell, auth flow, theme provider, design tokens napříč hub/budgeting/cashflow/voicehub.",
   "type": "module",

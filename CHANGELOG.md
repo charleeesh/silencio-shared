@@ -2,6 +2,29 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.1.3 — 2026-05-22
+
+### Fixed
+
+- **Kritický runtime bug v `supabase` exportu** — v0.1.0–v0.1.2 měly dist
+  `dist/index.js` redukovaný jen na `function le() { throw "missing
+  VITE_..." }`, protože Vite library build inline-replaceoval
+  `import.meta.env.VITE_SUPABASE_URL` na `undefined` (shared adresář nemá
+  `.env`), Rollup pak tree-shaknul celý `createClient` blok jako dead code.
+  Sub-app at runtime nedostala funkční klient → `useSession`/`RequireAuth`/
+  `ThemeProvider` padaly s "missing VITE_SUPABASE_URL" i když sub-app
+  vars správně nastavila. Fix: env-var read přes bracket-access
+  (`(import.meta as any)["env"]["VITE_..."]`), který Vite static analyzer
+  nematchuje, takže reference zůstává runtime.
+
+### Added
+
+- **`setSupabaseClient(client)` export** — explicitní initialization path.
+  Sub-app v `main.tsx` může předat svůj vlastní Supabase klient sharedu
+  (tím se auth + theme persist sdílí stejnou instanci jako doménová data).
+  Pokud sub-app nezavolá, shared si nadále vytvoří vlastní klient z env
+  vars (fallback path, viz fix výše).
+
 ## v0.1.2 — 2026-05-22
 
 ### Fixed

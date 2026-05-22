@@ -67,4 +67,4 @@ export {
   getCurrentSubApp,
   type SubApp,
 } from "@/lib/constants";
-export { supabase } from "@/lib/supabase";
+export { supabase, setSupabaseClient } from "@/lib/supabase";

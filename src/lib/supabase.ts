@@ -9,25 +9,55 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  * (`cashflow.*`, `voicehub.*` schema). Oba klienti sdílí session přes
  * localStorage (stejná hub.silencio.cz doména).
  *
- * Env vars (Vite): `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`.
+ * **Dvě cesty inicializace** (v0.1.3+):
  *
- * **Lazy init přes Proxy** — bez tohoto by `throw new Error(...)` na
- * top-level při buildu sub-app (kdy shared dist je už předbuildnutý a
- * env vars nejsou ve scope) způsobil dead-code elimination za throwem,
- * což rozbije named exports z bundle (Rolldown/Vite 8 chování).
+ * 1. **Explicitní (preferované):** sub-app v `main.tsx` zavolá
+ *    `setSupabaseClient(myClient)` se svým vlastním klientem. Tím se
+ *    `public.profiles` + `auth.*` čte přes ten samý klient jako
+ *    doménová data — jeden session, jedna instance.
+ *
+ * 2. **Implicitní (fallback):** pokud sub-app `setSupabaseClient` nezavolá,
+ *    shared si vytvoří vlastní klient z `import.meta.env.VITE_SUPABASE_URL`
+ *    a `VITE_SUPABASE_PUBLISHABLE_KEY`. Env vars se čtou přes **bracket
+ *    access** (`(import.meta as any)["env"]`), aby Vite/Rollup při build
+ *    library mode NEpropagoval `undefined` (Vite static analyzer matchuje
+ *    jen `import.meta.env.NAME`, dot-access). Tím zůstává reference
+ *    runtime → sub-app's env vars se resolvnou až when sub-app runs.
+ *
+ * **Historie chyby (v0.1.0–v0.1.2):** `import.meta.env.VITE_SUPABASE_URL`
+ * v shared zdroji se při shared build (kde `.env` chybí) replacoval na
+ * `undefined`, Rollup tree-shaknul celý `createClient` blok do dead-code,
+ * výsledný dist obsahoval jen `throw new Error("missing VITE_...")`.
+ * Sub-app at runtime tedy nikdy nedostala funkční Supabase klient ze shared.
  */
 
 let _client: SupabaseClient | undefined;
+let _externalClient: SupabaseClient | undefined;
+
+/**
+ * Předá sub-appův Supabase klient sharedu. Volej JEDNOU v `main.tsx`
+ * před prvním renderem, aby auth + theme persist používaly stejnou
+ * instanci jako doménová data.
+ */
+export function setSupabaseClient(client: SupabaseClient): void {
+  _externalClient = client;
+}
 
 function ensureClient(): SupabaseClient {
+  if (_externalClient) return _externalClient;
   if (_client) return _client;
-  const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-  const publishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as
-    | string
-    | undefined;
+  // Bracket access bypasses Vite static replacement at shared build time —
+  // ponecháno jako runtime expression, sub-app dostane své env vars.
+  const env =
+    ((import.meta as unknown as { env?: Record<string, string | undefined> })[
+      "env"
+    ]) ?? {};
+  const url = env["VITE_SUPABASE_URL"];
+  const publishableKey = env["VITE_SUPABASE_PUBLISHABLE_KEY"];
   if (!url || !publishableKey) {
     throw new Error(
-      "silencio-shared: missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY in environment.",
+      "silencio-shared: missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY in environment. " +
+        "Either set these vars in sub-app's .env, or call setSupabaseClient() with your own client.",
     );
   }
   _client = createClient(url, publishableKey, {
