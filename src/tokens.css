@@ -1,0 +1,148 @@
+/*
+ * silencio-shared design tokens (Tailwind v4).
+ *
+ * Sub-app musí v vlastním globálním CSS udělat:
+ *   @import "tailwindcss";
+ *   @import "silencio-shared/tokens.css";
+ *
+ * Tento soubor NESMÍ obsahovat `@import "tailwindcss";` — vedlo by k duplicitnímu
+ * Tailwind core v sub-app buildu. Zde žijí jen tokeny, custom variant a base fixes.
+ */
+
+@custom-variant light (&:is(.light *));
+
+@theme {
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-display:
+    "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-wordmark:
+    "Archivo Black", "Space Grotesk", "Inter", ui-sans-serif, system-ui,
+    sans-serif;
+
+  --color-silencio-lime: oklch(86% 0.22 130);
+  --color-silencio-blue: oklch(67% 0.2 250);
+  --color-silencio-magenta: oklch(64% 0.27 350);
+
+  --color-surface: #0b0b0f;
+  --color-surface-lifted: #15151b;
+  --color-text-default: #f2f2f2;
+  --color-text-muted: #878792;
+  --color-border-strong: #26262e;
+
+  --color-surface-light: #faf9f7;
+  --color-surface-lifted-light: #ffffff;
+  --color-text-light: #1a1a22;
+  --color-text-muted-light: #5a5a6a;
+  --color-border-light: #e2e1de;
+}
+
+:root {
+  --background: #0b0b0f;
+  --foreground: #f2f2f2;
+  --card: #15151b;
+  --card-foreground: #f2f2f2;
+  --popover: #15151b;
+  --popover-foreground: #f2f2f2;
+  --primary: oklch(86% 0.22 130);
+  --primary-foreground: #0b0b0f;
+  --secondary: #15151b;
+  --secondary-foreground: #f2f2f2;
+  --muted: #15151b;
+  --muted-foreground: #878792;
+  --accent: #15151b;
+  --accent-foreground: #f2f2f2;
+  --destructive: oklch(64% 0.27 350);
+  --destructive-foreground: #0b0b0f;
+  --border: #26262e;
+  --input: #26262e;
+  --ring: oklch(86% 0.22 130);
+  --radius: 4px;
+}
+
+.light {
+  --background: #faf9f7;
+  --foreground: #1a1a22;
+  --card: #ffffff;
+  --card-foreground: #1a1a22;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a22;
+  --primary: oklch(86% 0.22 130);
+  --primary-foreground: #1a1a22;
+  --secondary: #ffffff;
+  --secondary-foreground: #1a1a22;
+  --muted: #faf9f7;
+  --muted-foreground: #5a5a6a;
+  --accent: #ffffff;
+  --accent-foreground: #1a1a22;
+  --destructive: oklch(64% 0.27 350);
+  --destructive-foreground: #ffffff;
+  --border: #e2e1de;
+  --input: #e2e1de;
+  --ring: oklch(86% 0.22 130);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 1px);
+  --radius-sm: calc(var(--radius) - 2px);
+}
+
+@layer base {
+  /* Tailwind v4 + shadcn compat: bez explicitního `border-{color}` použij token
+     z theme. Bez toho má `border` className currentColor (default = text color)
+     a karty mají tlustý černý/bílý outline. */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+
+  html {
+    background-color: var(--background);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: oklch(86% 0.22 130);
+    color: #0b0b0f;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
