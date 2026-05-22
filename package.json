@@ -1,6 +1,6 @@
 {
   "name": "silencio-shared",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Silencio Finance Hub shared design system — AppShell, auth flow, theme provider, design tokens napříč hub/budgeting/cashflow/voicehub.",
   "type": "module",
@@ -26,7 +26,8 @@
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly --project tsconfig.build.json && tsc-alias --project tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepare": "npm run build"
   },
   "peerDependencies": {
     "@hookform/resolvers": "^3.0.0 || ^4.0.0 || ^5.0.0",

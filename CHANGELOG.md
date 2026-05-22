@@ -2,6 +2,12 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.1.1 — 2026-05-22
+
+### Fixed
+
+- **`prepare` script** přidán do `scripts` → npm automaticky spustí `npm run build` po `npm install` v sub-app. Bez toho sub-app dostala package bez `dist/` adresáře (git deps neberou v potaz `files` field jako `npm publish`), takže `import { AppShell } from "silencio-shared"` selhalo s "Cannot find module". Nyní instalace přes git dep funguje out-of-the-box.
+
 ## v0.1.0 — 2026-05-22
 
 Initial extract z hub canonical zdroje + voicehub. Plánovaná Fáze 6 z hub progressu.
