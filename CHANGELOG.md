@@ -2,6 +2,12 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.1.2 — 2026-05-22
+
+### Fixed
+
+- **`supabase` export je teď lazy přes Proxy** — předchozí top-level `throw new Error(...)` na chybějících env vars způsoboval dead-code elimination za throwem v Rolldown/Vite 8 buildu sub-app, takže named exports z bundle (`AppShell`, `useAuth`, `PrimaryButton`, atd.) nešly importovat (`MISSING_EXPORT` error). Lazy init odloží env check až na první přístup k `supabase.xyz`, takže parsing modulu projde čistě a sub-app build vidí všechny exporty.
+
 ## v0.1.1 — 2026-05-22
 
 ### Fixed
