@@ -2,6 +2,47 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.2.0 — 2026-05-26
+
+### Added — User management
+
+- **`UserMenu`** dropdown v `AppShell` — nahrazuje plain `Odhlásit se` button.
+  Položky: *Změnit heslo*, *Správa uživatelů* (jen admin), *Odhlásit se*.
+  Admin URL je override-able přes nový `AppShell` prop `adminUrl` (default:
+  dev hub → `/admin/users`, sub-app/prod → `https://hub.silencio.cz/admin/users`).
+- **`ChangePasswordModal`** — modal pro change-password flow. Podporuje
+  `forced` mode pro `must_change_password` gating (bez křížku, bez backdrop
+  close).
+- **`AdminUsersPage`** — plnoformátová admin stránka. List uživatelů,
+  create/edit/delete modaly, dva módy reset hesla (dočasné heslo /
+  email link). Sama si guarduje admin role.
+- **`useCurrentProfile`** hook — načte `public.profiles` row pro aktuální
+  session (role, sub_apps, must_change_password, …). Reload přes `refresh()`.
+- **`adminApi`** — thin wrapper kolem edge function `admin-users`:
+  `listAdminUsers`, `createAdminUser`, `updateAdminUser`, `deleteAdminUser`,
+  `resetAdminUserPassword`.
+
+### Changed
+
+- `AppShell` má nový prop `adminUrl` (volitelný override pro UserMenu).
+- `AppShell` už nepoužívá `useNavigate`/`signOut` přímo — sign-out logika
+  je v UserMenu.
+
+### DB foundation (migrace 30 v `dduwconnyjoloykfsscz`)
+
+- `public.profiles.email` (kopie z `auth.users.email`, sync trigger)
+- `public.profiles.sub_apps text[]` s CHECK constraintem na
+  `{budgeting, cashflow, voicehub}`
+- `public.profiles.must_change_password boolean`
+- Trigger `handle_new_user` → vytvoří profile při `auth.users` INSERT
+- RLS: admin INSERT/DELETE policy na `profiles`
+
+### Edge function
+
+- `admin-users` — router-style endpoint pro list/create/update/delete/reset.
+  Ověřuje admin role uvnitř (JWT → profiles.role), pro skutečnou operaci
+  používá service-role klient.
+
 ## v0.1.3 — 2026-05-22
 
 ### Fixed

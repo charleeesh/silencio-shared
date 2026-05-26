@@ -12,6 +12,8 @@ export { SpotlightCard } from "@/components/SpotlightCard";
 export { MetricCard } from "@/components/MetricCard";
 export { PageHeader } from "@/components/PageHeader";
 export { PrimaryButton } from "@/components/PrimaryButton";
+export { UserMenu } from "@/components/UserMenu";
+export { ChangePasswordModal } from "@/components/ChangePasswordModal";
 
 // Theme
 export { ThemeProvider, useTheme, useThemePreference } from "@/theme/ThemeProvider";
@@ -33,6 +35,13 @@ export {
   updatePassword,
 } from "@/auth/api";
 export { useSession, useAuth, type UseSessionResult } from "@/auth/useSession";
+export {
+  useCurrentProfile,
+  type CurrentProfile,
+  type UseCurrentProfileResult,
+  type UserRole,
+  type SubAppKey,
+} from "@/auth/useCurrentProfile";
 export { RequireAuth, RedirectIfAuthed, AuthRoute } from "@/auth/RequireAuth";
 export {
   mapAuthError,
@@ -54,6 +63,20 @@ export { LoginPage } from "@/auth/pages/LoginPage";
 export { ForgotPasswordPage } from "@/auth/pages/ForgotPasswordPage";
 export { SetNewPasswordPage } from "@/auth/pages/SetNewPasswordPage";
 export { ExpiredLinkPage } from "@/auth/pages/ExpiredLinkPage";
+
+// Admin
+export { AdminUsersPage } from "@/admin/AdminUsersPage";
+export {
+  listAdminUsers,
+  createAdminUser,
+  updateAdminUser,
+  deleteAdminUser,
+  resetAdminUserPassword,
+  type AdminUserRow,
+  type CreateUserInput,
+  type UpdateUserInput,
+  type ResetPasswordMode,
+} from "@/admin/adminApi";
 
 // Chips
 export { NeutralChip } from "@/chips/NeutralChip";

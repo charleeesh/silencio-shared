@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { signOut } from "@/auth/api";
+import { Link } from "react-router-dom";
 import { ThemeToggle } from "@/theme/ThemeToggle";
+import { UserMenu } from "@/components/UserMenu";
 import logoWhite from "@/assets/logo/silencio-white.png";
 import logoBlack from "@/assets/logo/silencio-black.png";
 import { HUB_HOME_URL } from "@/lib/constants";
@@ -18,6 +18,12 @@ interface AppShellProps {
    * `/` (RequireAuth pak redirectne na hub.silencio.cz).
    */
   signOutRedirect?: string;
+  /**
+   * Override URL pro "Správa uživatelů" v UserMenu (admin only). Default:
+   * - dev hub → `/admin/users`
+   * - sub-app / prod → `https://hub.silencio.cz/admin/users`
+   */
+  adminUrl?: string;
 }
 
 interface HubHomeLinkProps {
@@ -50,18 +56,8 @@ export function AppShell({
   children,
   appName,
   signOutRedirect = "/login",
+  adminUrl,
 }: AppShellProps) {
-  const navigate = useNavigate();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch {
-      // navigujem stejně pryč
-    }
-    navigate(signOutRedirect, { replace: true });
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="flex items-center justify-between border-b border-border px-6 py-4 sm:px-12">
@@ -89,13 +85,7 @@ export function AppShell({
         </HubHomeLink>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="rounded-sm px-2 text-[13px] text-muted-foreground transition-colors duration-150 hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-silencio-lime focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-          >
-            Odhlásit se
-          </button>
+          <UserMenu signOutRedirect={signOutRedirect} adminUrl={adminUrl} />
         </div>
       </header>
       <main>{children}</main>
