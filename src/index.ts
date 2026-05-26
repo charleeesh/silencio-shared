@@ -43,6 +43,8 @@ export {
   type SubAppKey,
 } from "@/auth/useCurrentProfile";
 export { RequireAuth, RedirectIfAuthed, AuthRoute } from "@/auth/RequireAuth";
+export { RequirePasswordReady } from "@/auth/RequirePasswordReady";
+export { RequireSubAppAccess } from "@/auth/RequireSubAppAccess";
 export {
   mapAuthError,
   type AuthFailure,

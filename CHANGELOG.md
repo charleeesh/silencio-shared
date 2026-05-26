@@ -2,6 +2,41 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.3.0 — 2026-05-26
+
+### Added
+
+- **`RequirePasswordReady`** — globální gate komponent přesunutý z hubu do
+  sharedu, aby ho mohly sub-appky stejně používat. Zobrazí forced
+  ChangePasswordModal kolem children, pokud `profile.must_change_password=true`.
+- **`RequireSubAppAccess`** — guard komponent pro sub-app routes. Bere
+  `subApp` prop (`'budgeting' | 'cashflow' | 'voicehub'`) a ověří, že
+  `profile.sub_apps` ho obsahuje. Admin projde vždy. Pokud user nemá přístup,
+  zobrazí "Přístup zamítnut" page s odkazem zpět na hub.
+
+### Migration guide pro sub-appky
+
+Nahradit ve sub-app root:
+
+```tsx
+// Před
+<RequireAuth>
+  <App />
+</RequireAuth>
+
+// Po
+<RequireAuth>
+  <RequirePasswordReady>
+    <RequireSubAppAccess subApp="budgeting">
+      <App />
+    </RequireSubAppAccess>
+  </RequirePasswordReady>
+</RequireAuth>
+```
+
+Hub stejně, ale bez `RequireSubAppAccess` (hub home filtruje karty sám podle
+`profile.sub_apps`).
+
 ## v0.2.1 — 2026-05-26
 
 ### Fixed
