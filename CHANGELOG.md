@@ -2,6 +2,24 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.2.1 — 2026-05-26
+
+### Fixed
+
+- **`import.meta.env.DEV` DCE bug v `AppShell.HubHomeLink` a `UserMenu`** —
+  v0.2.0 a dříve měly dot-access `import.meta.env.DEV`, který Vite library
+  build inline-replacoval konstantou ze shared kontextu (`false`, protože
+  shared build neměl Vite dev). Důsledek: v dev hubu kliknutí na logo / na
+  "Správa uživatelů" v UserMenu poslalo na produkční `hub.silencio.cz`
+  místo lokálního routeru. Stejný DCE pattern jako u env vars ve v0.1.0–v0.1.2
+  `supabase.ts`. Fix: nová `isDevMode()` funkce v `lib/constants.ts` čte
+  `DEV` přes bracket-access.
+
+### Added
+
+- **`isDevMode()`** export z `silencio-shared` — runtime detekce dev modu,
+  bezpečná pro library mode buildy.
+
 ## v0.2.0 — 2026-05-26
 
 ### Added — User management

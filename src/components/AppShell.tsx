@@ -4,7 +4,7 @@ import { ThemeToggle } from "@/theme/ThemeToggle";
 import { UserMenu } from "@/components/UserMenu";
 import logoWhite from "@/assets/logo/silencio-white.png";
 import logoBlack from "@/assets/logo/silencio-black.png";
-import { HUB_HOME_URL } from "@/lib/constants";
+import { HUB_HOME_URL, isDevMode } from "@/lib/constants";
 
 interface AppShellProps {
   children: ReactNode;
@@ -38,7 +38,7 @@ interface HubHomeLinkProps {
  * dev i prod prakticky vedou na hub home.
  */
 function HubHomeLink({ children, className, ariaLabel }: HubHomeLinkProps) {
-  if (import.meta.env.DEV) {
+  if (isDevMode()) {
     return (
       <Link to="/" aria-label={ariaLabel} className={className}>
         {children}

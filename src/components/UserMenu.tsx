@@ -4,7 +4,7 @@ import { KeyRound, LogOut, User as UserIcon, Users } from "lucide-react";
 import { signOut } from "@/auth/api";
 import { useCurrentProfile } from "@/auth/useCurrentProfile";
 import { ChangePasswordModal } from "@/components/ChangePasswordModal";
-import { HUB_HOME_URL, getCurrentSubApp } from "@/lib/constants";
+import { HUB_HOME_URL, getCurrentSubApp, isDevMode } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 
 interface UserMenuProps {
@@ -56,7 +56,7 @@ export function UserMenu({ signOutRedirect = "/login", adminUrl }: UserMenuProps
 
   const resolvedAdminUrl =
     adminUrl ??
-    (getCurrentSubApp() === "hub" && import.meta.env.DEV
+    (getCurrentSubApp() === "hub" && isDevMode()
       ? "/admin/users"
       : `${HUB_HOME_URL}admin/users`);
 

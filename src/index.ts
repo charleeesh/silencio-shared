@@ -88,6 +88,7 @@ export { cn } from "@/lib/cn";
 export {
   HUB_HOME_URL,
   getCurrentSubApp,
+  isDevMode,
   type SubApp,
 } from "@/lib/constants";
 export { supabase, setSupabaseClient } from "@/lib/supabase";
