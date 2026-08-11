@@ -65,12 +65,21 @@ export function ChangePasswordModal({
     setSubmitting(true);
     try {
       await updatePassword(password);
-      // Pokud user měl must_change_password=true, shodím flag
+      // Pokud user měl must_change_password=true, shodím flag.
+      //
+      // POZOR: supabase `.update()` při zamítnutí RLS NEvyhazuje výjimku —
+      // vrací `{ error }`. Bez téhle kontroly by se u zamítnutého UPDATE
+      // nastavil success, uživatel by věřil, že má heslo změněné, ale
+      // `must_change_password` by zůstalo true → při dalším načtení znovu
+      // zamčený forced modal, ze kterého není úniku.
+      // (Přesně tohle potkalo ne-adminy do 2026-08-10, kdy chyběl
+      // GRANT EXECUTE na `current_user_role()` použitou v RLS policy.)
       if (session?.user.id) {
-        await supabase
+        const { error: profileError } = await supabase
           .from("profiles")
           .update({ must_change_password: false })
           .eq("id", session.user.id);
+        if (profileError) throw new Error(profileError.message);
       }
       setSuccess(true);
       if (onSuccess) await onSuccess();

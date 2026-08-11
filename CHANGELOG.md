@@ -2,6 +2,39 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.4.2 — 2026-08-11
+
+### Fixed
+
+- **`ChangePasswordModal` tiše polykal chybu RLS** — dlužná oprava, naplánovaná
+  10. 8. jako „v0.3.1", která nikdy neproběhla. `supabase.update()` při zamítnutí
+  RLS **nevyhazuje výjimku**, vrací `{ error }`. Kód návratovou hodnotu ignoroval
+  → `setSuccess(true)` i po neúspěšném UPDATE → uživatel věřil, že má heslo
+  změněné, ale `must_change_password` zůstalo `true` → při dalším načtení zase
+  zamčený forced modal bez úniku. Teď se `error` kontroluje a vyhodí.
+
+  Kořenová příčina (chybějící `GRANT EXECUTE` na `current_user_role()`) byla
+  opravena v DB 10. 8., takže se to dnes nespustí. Tohle je obrana proti
+  jakémukoli budoucímu RLS zamítnutí. Týká se **ne-adminů** — admin projde
+  short-circuitem na `user_is_admin()`, proto to Karel nikdy neviděl.
+
+### Docs
+
+- **README opraven na realitu.** Tvrdil, že canonical zdroj designu je
+  `silencio/hub/src/` a tenhle balíček je jen jeho snapshot — což přestalo platit
+  po fázích 6 a 7, které hub vykuchaly. Dnes má `hub/src/` sedm souborů, žádné
+  `components/`/`auth/`/`theme/`, a brand tokeny importuje odsud jako každá
+  sub-app. Canonical je nadále tenhle balíček; historie je v README zachovaná.
+- **Nová sekce „Pasti při integraci"** — pět gotchas, které dosud žily jen
+  v Karlově memory, ne v repu: `@source` pro Tailwind v4, `optimizeDeps.exclude`,
+  nově objevený `react/jsx-runtime` v `include`, `useSession` místo `useAuth`,
+  a zákaz dot-access na `import.meta.env` uvnitř balíčku.
+- **Nová sekce „Co nesmí rozbít update"** — grep konzumentů před releasem
+  a tabulka bezpečných vs. breaking změn. Pozor hlavně na `Record<UnionType, …>`:
+  widening unionu je jinak bezpečné, ale takový objekt rozbije.
+- Workflow upraven: **nemusí se bumpovat všechny appky najednou**, aditivní
+  změna může zůstat nevyzvednutá, dokud ji appka nepotřebuje.
+
 ## v0.4.1 — 2026-08-11
 
 ### Added
