@@ -24,6 +24,7 @@
   --color-silencio-lime: oklch(86% 0.22 130);
   --color-silencio-blue: oklch(67% 0.2 250);
   --color-silencio-magenta: oklch(64% 0.27 350);
+  --color-silencio-amber: oklch(78% 0.16 65);
 
   --color-surface: #0b0b0f;
   --color-surface-lifted: #15151b;

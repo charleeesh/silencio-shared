@@ -2,6 +2,14 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.4.1 — 2026-08-11
+
+### Added
+
+- **`--color-silencio-amber`** (`oklch(78% 0.16 65)`) — čtvrtý brand akcent.
+  Hub měl jen lime / blue / magenta, což se čtyřmi sub-app kartami nevyšlo.
+  Amber je přiřazený Setu (`utility: text-silencio-amber`, `bg-silencio-amber`).
+
 ## v0.4.0 — 2026-08-11
 
 ### Added
