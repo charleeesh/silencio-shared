@@ -8,6 +8,7 @@
 
 // Components
 export { AppShell } from "@/components/AppShell";
+export { AppNavLink } from "@/components/AppNavLink";
 export { SpotlightCard } from "@/components/SpotlightCard";
 export { MetricCard } from "@/components/MetricCard";
 export { PageHeader } from "@/components/PageHeader";

@@ -2,6 +2,47 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.5.0 — 2026-08-11
+
+### Added
+
+- **`AppShell` má slot `nav`** — navigace sub-appky se vykresluje v hlavičce
+  **vedle wordmarku** (`[logo] SET  Projekty  Adresář`), což je layout, který
+  rodina používá. Prop je volitelný, takže appky bez navigace se nezmění.
+- **`AppNavLink`** — položka té navigace se sjednoceným stylem. Aktivní se
+  odlišuje jen tučností a plnou barvou textu, žádné podtržení ani pozadí.
+
+```tsx
+<AppShell
+  appName="Set"
+  nav={
+    <>
+      <AppNavLink to="/" end>Projekty</AppNavLink>
+      <AppNavLink to="/adresar">Adresář</AppNavLink>
+    </>
+  }
+>
+```
+
+### Proč to vzniklo
+
+Shared `AppShell` slot pro navigaci neměl, takže **cashflow si celý AppShell
+naforkovalo** (`cashflow/src/components/AppShell.tsx`), aby menu do hlavičky
+dostalo — přesně ten copy-paste drift, kvůli kterému tenhle balíček vznikl.
+Set na to narazil jako druhý v pořadí; místo třetí kopie přibyl slot sem.
+
+Cashflow fork tím pádem může zaniknout — jeho AppShell se od sdíleného liší
+už jen tím, že má místo `UserMenu` prosté tlačítko „Odhlásit se" (stav před
+user managementem). **Migrace cashflow není součástí tohohle releasu**, sister
+repy se nemění bez Karlova vědomí. Až na to dojde: smazat lokální `AppShell.tsx`
+a `NavLink.tsx`, importovat `AppShell` + `AppNavLink` ze sharedu.
+
+### Ověření dopadu
+
+Grep konzumentů: hub, budgeting, voicehub i set volají `<AppShell>` bez `nav`.
+Prop je volitelný → aditivní, nic se nerozbije. Cashflow konzumuje vlastní
+kopii, takže se ho změna netýká vůbec.
+
 ## v0.4.2 — 2026-08-11
 
 ### Fixed
