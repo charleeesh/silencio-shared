@@ -2,6 +2,35 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.4.0 — 2026-08-11
+
+### Added
+
+- **Sub-app klíč `set`** — nová sub-app Silencio Set (plánování natáčecího dne
+  + call sheet). Aditivní rozšíření na čtyřech místech:
+  - `SubAppKey` = `'budgeting' | 'cashflow' | 'voicehub' | 'set'`
+  - `SubApp` (odvozený z `BASE_URL`) rozpoznává `/set/` → `'set'`
+  - `RequireSubAppAccess` DEFAULT_APP_NAMES: `set → "Set"`
+  - `AdminUsersPage` SUB_APP_OPTIONS: checkbox "Set"
+
+### Vyžaduje DB migraci
+
+`public.profiles.sub_apps` má CHECK constraint, který nový klíč musí povolit:
+
+```sql
+alter table public.profiles drop constraint profiles_sub_apps_check;
+alter table public.profiles add constraint profiles_sub_apps_check
+  check (sub_apps <@ array['budgeting','cashflow','voicehub','set']::text[]);
+```
+
+Bez ní `AdminUsersPage` uloží `sub_apps` s `'set'` → constraint violation.
+Widening constraintu je bezpečné, existující řádky vyhoví.
+
+### Poznámka pro sister repy
+
+Změna je čistě aditivní — budgeting/cashflow/voicehub můžou zůstat na v0.3.0.
+Hub by měl bumpnout na v0.4.0, aby v AdminUsersPage nabídl checkbox "Set".
+
 ## v0.3.0 — 2026-05-26
 
 ### Added

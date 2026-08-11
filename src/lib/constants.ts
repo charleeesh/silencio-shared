@@ -10,7 +10,7 @@ export const HUB_HOME_URL = "https://hub.silencio.cz/";
  * `"/voice/"`, `"/"` pro hub). Užitečné pro brand barvy / accent volby v
  * sdílených komponentech, které chtějí vědět, kde se vykreslují.
  */
-export type SubApp = "hub" | "budget" | "cashflow" | "voice" | "unknown";
+export type SubApp = "hub" | "budget" | "cashflow" | "voice" | "set" | "unknown";
 
 function readEnv(): Record<string, unknown> {
   return ((import.meta as unknown as { env?: Record<string, unknown> })[
@@ -28,6 +28,7 @@ export function getCurrentSubApp(): SubApp {
   if (trimmed === "budget") return "budget";
   if (trimmed === "cashflow") return "cashflow";
   if (trimmed === "voice") return "voice";
+  if (trimmed === "set") return "set";
   return "unknown";
 }
 

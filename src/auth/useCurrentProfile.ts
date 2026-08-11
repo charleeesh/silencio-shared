@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { useSession } from "@/auth/useSession";
 
 export type UserRole = "admin" | "producer" | "viewer";
-export type SubAppKey = "budgeting" | "cashflow" | "voicehub";
+export type SubAppKey = "budgeting" | "cashflow" | "voicehub" | "set";
 
 export interface CurrentProfile {
   id: string;
