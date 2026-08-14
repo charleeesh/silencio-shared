@@ -138,11 +138,27 @@ export function ChangePasswordModal({
             <p className="text-[14px] leading-relaxed text-foreground">
               Heslo bylo úspěšně změněno.
             </p>
-            {!forced && (
-              <PrimaryButton onClick={onClose} className="!w-full">
-                Zavřít
-              </PrimaryButton>
-            )}
+            {/*
+              Tlačítko je vždy — i ve forced režimu. Forced modal se normálně
+              zavře tím, že `onSuccess` (refresh profilu) shodí
+              `must_change_password` a gate se sám otevře. Kdyby ale refresh
+              neproběhl nebo se opozdil, forced success bez tlačítka je past
+              (křížek ani backdrop nefungují). Tohle je únikový východ:
+              znovu spustí onSuccess, případně jen zavře.
+            */}
+            <PrimaryButton
+              onClick={() => {
+                if (forced) {
+                  if (onSuccess) void onSuccess();
+                  else onClose();
+                } else {
+                  onClose();
+                }
+              }}
+              className="!w-full"
+            >
+              {forced ? "Pokračovat do aplikace" : "Zavřít"}
+            </PrimaryButton>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="mt-6 space-y-5">
