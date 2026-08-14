@@ -19,6 +19,15 @@ Před extrakcí žil identický kód ve čtyřech repech — `AppShell.tsx`, `Th
 > Hub je dnes konzument jako ostatní, jen s vlastním rozcestníkem.
 > Opraveno 2026-08-11 při stavbě sub-app `set`.
 
+## Interní dokumentace
+
+Tenhle README je pro **konzumenty** (jak balíček používat). Vývojová dokumentace
+balíčku je v:
+
+- [CLAUDE.md](CLAUDE.md) — hot cache: příkazy, co vědět před sáhnutím na kód
+- [docs/design-system.md](docs/design-system.md) — rodinová design pravidla (wordmark, karty, fonty, chipy, tabulky, tlačítka, favicon)
+- [docs/rozhodnuti.md](docs/rozhodnuti.md) — proč je balíček postavený takhle + zamítnuté nápady
+
 ## Instalace
 
 V `package.json` sub-app:
