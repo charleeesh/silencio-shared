@@ -17,6 +17,24 @@ nemusí nic bumpovat. Součást celorodinového `npm audit` sweepu.
   chokidar 3 i v 1.9.7). Do `dist/` nic z toho nejde.
 - Oprava react-routeru se sharedu netýká — je to **peer** závislost, verzi
   routeru si nese každá appka sama.
+- Nový **rozcestník celé rodiny** [docs/rodina.md](docs/rodina.md) a skript
+  `scripts/rodina-stav.mjs` (git stav + verze všech rep). Obojí mimo `dist/`.
+
+## v0.5.1 — 2026-08-14
+
+### Fixed
+
+- **`ChangePasswordModal` — únikové tlačítko i ve forced režimu.** Úspěšná
+  změna hesla ve forced stavu dosud neměla žádné tlačítko a spoléhala jen na to,
+  že `onSuccess` (refresh profilu) shodí `must_change_password` a gate se otevře.
+  Když refresh neproběhl nebo se opozdil, uživatel uvízl (křížek ani backdrop ve
+  forced režimu nefungují). Teď je tlačítko vždy: ve forced režimu „Pokračovat do
+  aplikace" znovu spustí `onSuccess`, jinak „Zavřít". Doplňuje kontrolu chyby
+  z `.update()` z v0.4.2.
+
+Na v0.5.1 přešla 2026-08-14 celá rodina naráz (dřív v0.3.0–v0.5.0). Aditivní
+oprava, konzumenti nemusí nic měnit. *(Záznam doplněn zpětně 2026-10-16 —
+release proběhl bez CHANGELOGu.)*
 
 ## v0.5.0 — 2026-08-11
 

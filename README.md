@@ -25,6 +25,7 @@ Tenhle README je pro **konzumenty** (jak balíček používat). Vývojová dokum
 balíčku je v:
 
 - [CLAUDE.md](CLAUDE.md) — hot cache: příkazy, co vědět před sáhnutím na kód
+- [docs/rodina.md](docs/rodina.md) — **rozcestník celé rodiny**: appky, kde je jaká informace, verze, co změnit jinde
 - [docs/design-system.md](docs/design-system.md) — rodinová design pravidla (wordmark, karty, fonty, chipy, tabulky, tlačítka, favicon)
 - [docs/rozhodnuti.md](docs/rozhodnuti.md) — proč je balíček postavený takhle + zamítnuté nápady
 
@@ -35,7 +36,7 @@ V `package.json` sub-app:
 ```json
 {
   "dependencies": {
-    "silencio-shared": "github:charleeesh/silencio-shared#v0.1.0"
+    "silencio-shared": "github:charleeesh/silencio-shared#v0.5.1"
   }
 }
 ```
