@@ -49,8 +49,10 @@ export default defineConfig({
     // Zkopíruj tokens.css i logo PNG do dist v deterministických cestách.
     viteStaticCopy({
       targets: [
-        { src: "src/tokens.css", dest: "." },
-        { src: "src/assets/logo/*.png", dest: "assets/logo" },
+        // static-copy 3+ zachovává adresářovou strukturu zdroje; `stripBase`
+        // vrací plochou kopii, jakou appky čekají (`silencio-shared/tokens.css`).
+        { src: "src/tokens.css", dest: ".", rename: { stripBase: true } },
+        { src: "src/assets/logo/*.png", dest: "assets/logo", rename: { stripBase: true } },
       ],
     }),
   ],

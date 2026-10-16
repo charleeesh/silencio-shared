@@ -19,9 +19,8 @@
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "types": ["vite/client", "node"]
   },

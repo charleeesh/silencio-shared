@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-// Stav celé rodiny Silencio na jeden pohled: git, verze klíčových knihoven
+// Stav všech appek Silencio na jeden pohled: git, verze klíčových knihoven
 // (jak je zapsal package-lock) a volitelně npm audit. Nic nemění.
 //
-//   node scripts/rodina-stav.mjs            # git + verze (offline, rychlé)
-//   node scripts/rodina-stav.mjs --fetch    # napřed git fetch (přesné ahead/behind)
-//   node scripts/rodina-stav.mjs --audit    # navíc npm audit každého repa (síť)
+//   node scripts/stav-appek.mjs            # git + verze (offline, rychlé)
+//   node scripts/stav-appek.mjs --fetch    # napřed git fetch (přesné ahead/behind)
+//   node scripts/stav-appek.mjs --audit    # navíc npm audit každého repa (síť)
 //
 // Repa hledá jako sourozence složky `shared` (…/silencio/<repo>), takže funguje
 // stejně na Macu (~/Documents/Webove_projekty) i na VPS (~/Webove_projekty).
-// Popis výstupu a co s rozdíly dělat: docs/rodina.md.
+// Popis výstupu a co s rozdíly dělat: docs/mapa-appek.md.
 
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
@@ -43,7 +43,7 @@ const sh = (cmd, cwd) =>
 
 const found = REPOS.filter((r) => existsSync(join(root, r, "package.json")));
 const missing = REPOS.filter((r) => !found.includes(r));
-console.log(`Rodina Silencio — ${root}`);
+console.log(`Appky Silencio — ${root}`);
 if (missing.length) console.log(`(chybí: ${missing.join(", ")})`);
 
 // --- git -------------------------------------------------------------------
@@ -93,7 +93,7 @@ for (const p of PACKAGES) {
   const vals = found.map((r) => versions[r][p] ?? "-");
   if (vals.every((v) => v === "-")) continue;
   const majors = new Set(vals.filter((v) => v !== "-").map(major));
-  const flag = majors.size > 1 ? "  ← rozdíl (zapsaný v docs/rodina.md?)" : "";
+  const flag = majors.size > 1 ? "  ← rozdíl (zapsaný v docs/mapa-appek.md?)" : "";
   console.log("  " + p.padEnd(24) + vals.map((v) => v.padEnd(11)).join("") + flag);
 }
 

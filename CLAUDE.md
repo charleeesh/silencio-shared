@@ -23,8 +23,8 @@ tagem**, appky ho tahnou přes `"silencio-shared": "github:charleeesh/silencio-s
 | [CHANGELOG.md](CHANGELOG.md) | verzní historie |
 | [docs/design-system.md](docs/design-system.md) | rodinová design pravidla — wordmark, karty, fonty, chipy, tabulky, tlačítka, favicon |
 | [docs/rozhodnuti.md](docs/rozhodnuti.md) | **proč** — vlastní Supabase klient, AppShell, MetricCard, peer deps + zamítnuté |
-| [docs/rodina.md](docs/rodina.md) | **rozcestník celé rodiny** — appky, kde je jaká informace, verze ve všech appkách, „když měníš X, uprav i Y", log celorodinových změn |
-| [scripts/rodina-stav.mjs](scripts/rodina-stav.mjs) | `node scripts/rodina-stav.mjs [--audit] [--fetch]` — git stav a verze všech rep na jeden pohled |
+| [docs/mapa-appek.md](docs/mapa-appek.md) | **mapa všech appek** — appky, kde je jaká informace, verze ve všech appkách, „když měníš X, uprav i Y", log celorodinových změn |
+| [scripts/stav-appek.mjs](scripts/stav-appek.mjs) | `node scripts/stav-appek.mjs [--audit] [--fetch]` — git stav a verze všech rep na jeden pohled |
 
 ## Co musíš vědět, než sáhneš na kód
 
@@ -52,7 +52,7 @@ v README, sekce „Pasti při integraci". Nedvojit je sem.
 **Verzní skew je OK**, dokud je vědomý — aditivní změna nevynucuje bump všech
 appek naráz.
 
-**Tenhle repo drží i rozcestník celé rodiny** ([docs/rodina.md](docs/rodina.md)) —
+**Tenhle repo drží i mapu všech appek** ([docs/mapa-appek.md](docs/mapa-appek.md)) —
 všechny appky na něj odkazují. Když se v rodině mění něco, co se týká víc rep
 (verze, nová appka, release), patří to do jeho tabulek a Logu. Repo je public:
 citlivé věci (Supabase ID, uživatelé) jen do `silencio-hub/docs/`.

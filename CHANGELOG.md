@@ -2,23 +2,36 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
-## Nevydáno — údržba závislostí (2026-10-16)
+## Nevydáno — údržba závislostí a nástrojů (2026-10-16)
 
-Bez nového tagu — **`dist/` je bajt po bajtu stejný** jako před updatem, konzumenti
-nemusí nic bumpovat. Součást celorodinového `npm audit` sweepu.
+Bez nového tagu — konzumenti nemusí nic bumpovat. Změny se dostanou do appek až
+s příštím releasem; výstup je ověřený, viz níž.
 
-- dev: vite 6.4.2 → **6.4.4**, react-router-dom (dev, pro build) 7.15.1 → 7.18.4,
-  tranzitivně postcss, nanoid, source-map-js, brace-expansion, fast-uri,
-  api-extractor patche
-- `tsc-alias` vědomě zůstává na **1.8.17**: 1.9.7 nic neopravuje a mění importy
-  v `.d.ts` (přidává `.js`), což by byla změna publikovaných typů.
-- `npm audit` 20 → **12**. Zbytek je build-time tooling a chce major:
-  `vite-plugin-dts` 5, `vite-plugin-static-copy` 3+, `tsc-alias` (globby 11 /
-  chokidar 3 i v 1.9.7). Do `dist/` nic z toho nejde.
-- Oprava react-routeru se sharedu netýká — je to **peer** závislost, verzi
-  routeru si nese každá appka sama.
-- Nový **rozcestník celé rodiny** [docs/rodina.md](docs/rodina.md) a skript
-  `scripts/rodina-stav.mjs` (git stav + verze všech rep). Obojí mimo `dist/`.
+**Dopoledne — bezpečnostní update** (jen patch/minor): vite 6.4.2 → 6.4.4,
+react-router-dom (dev) 7.18.4, tranzitivně postcss, nanoid, source-map-js,
+brace-expansion, fast-uri, api-extractor. `dist/` bajt po bajtu beze změny.
+
+**Odpoledne — sjednocení s hubem a appkami:**
+
+- **Vite 6 → 8** (stejně jako appky), `vite-plugin-static-copy` 2 → 4,
+  TypeScript 5.9 → **6.0**; dev verze peer knihoven na verze appek (zod 4,
+  lucide-react 1.58, @hookform/resolvers 5.9, react-hook-form 7.90,
+  supabase-js 2.118, tailwind-merge 3).
+- **static-copy 3+ zachovává adresářovou strukturu** — bez `rename.stripBase`
+  by `tokens.css` a loga skončily v `dist/src/…` a appky by je nenašly.
+- TypeScript 6 vyřadil `baseUrl` (odstraněn, `paths` je relativní `./src/*`)
+  a build tsconfig potřebuje explicitní `rootDir`.
+- `vite-plugin-dts` odebrán — nepoužíval se (typy staví `tsc` + `tsc-alias`).
+- **Ověření výstupu:** `.d.ts`, `tokens.css` a loga bajt po bajtu stejné jako
+  před změnou; `index.js` (teď z Rolldownu místo Rollupu) má stejných 56 exportů
+  a stejné externí importy; hub s novým `dist/` sestaven a spuštěn (login,
+  zobrazení hesla, zapomenuté heslo).
+- `tsc-alias` vědomě na **1.8.17**: 1.9.7 nic neopravuje a mění importy
+  v `.d.ts` (přidává `.js`).
+- `npm audit` 20 → **7** — všech 7 v knihovnách na hledání souborů pod
+  `tsc-alias` a `vite-plugin-static-copy` (build-time, do `dist/` nic nejde).
+- Nová **mapa všech appek** [docs/mapa-appek.md](docs/mapa-appek.md) a skript
+  `scripts/stav-appek.mjs` (git stav + verze všech rep). Obojí mimo `dist/`.
 
 ## v0.5.1 — 2026-08-14
 
