@@ -2,6 +2,22 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## Nevydáno — údržba závislostí (2026-10-16)
+
+Bez nového tagu — **`dist/` je bajt po bajtu stejný** jako před updatem, konzumenti
+nemusí nic bumpovat. Součást celorodinového `npm audit` sweepu.
+
+- dev: vite 6.4.2 → **6.4.4**, react-router-dom (dev, pro build) 7.15.1 → 7.18.4,
+  tranzitivně postcss, nanoid, source-map-js, brace-expansion, fast-uri,
+  api-extractor patche
+- `tsc-alias` vědomě zůstává na **1.8.17**: 1.9.7 nic neopravuje a mění importy
+  v `.d.ts` (přidává `.js`), což by byla změna publikovaných typů.
+- `npm audit` 20 → **12**. Zbytek je build-time tooling a chce major:
+  `vite-plugin-dts` 5, `vite-plugin-static-copy` 3+, `tsc-alias` (globby 11 /
+  chokidar 3 i v 1.9.7). Do `dist/` nic z toho nejde.
+- Oprava react-routeru se sharedu netýká — je to **peer** závislost, verzi
+  routeru si nese každá appka sama.
+
 ## v0.5.0 — 2026-08-11
 
 ### Added

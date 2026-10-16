@@ -50,6 +50,10 @@ v README, sekce „Pasti při integraci". Nedvojit je sem.
 **Verzní skew je OK**, dokud je vědomý — aditivní změna nevynucuje bump všech
 appek naráz.
 
+**Závislosti prošly 2026-10-16 bezpečnostním updatem celé rodiny.** Shared bez
+nového tagu (`dist/` beze změny); co zůstalo neopravené a proč →
+[CHANGELOG.md](CHANGELOG.md).
+
 ## Hranice
 
 - Změny **aditivně a okomentovaně**; konzumenty (5 appek) napřed grepnout.
