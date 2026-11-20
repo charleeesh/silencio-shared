@@ -76,15 +76,15 @@ GitHubu; lokální složka bez `gsync` + `npm install` může ukazovat starší.
 | React Router | 7.18 | 7.18 | 7.18 | 7.18 | 7.18 | peer |
 | silencio-shared | **v0.6.1** | v0.5.1 | v0.5.1 | v0.5.1 | v0.5.1 | — |
 | Vite | 8.0 | 8.0 | 8.0 | 8.0 | 8.2 | 8.0 |
-| TypeScript | 6.0 | **5.7** | 6.0 | 6.0 | 6.0 | 6.0 |
+| TypeScript | 6.0 | 6.0 | 6.0 | 6.0 | 6.0 | 6.0 |
 | Tailwind | 4.3 | 4.3 | 4.3 | 4.3 | 4.3 | peer |
 | tailwind-merge | 3 | 3 | 3 | 3 | 3 | peer |
-| supabase-js | 2.105 | 2.105 | 2.118 | 2.118 | 2.118 | peer |
-| TanStack Query | 5.100 | 5.100 | 5.104 | 5.104 | 5.104 | — |
-| zod | 4 | **3** | 4 | 4 | 4 | peer |
-| @hookform/resolvers | 5 | **3** | 5 | 5 | 5 | peer |
-| lucide-react | 1.x | **0.469** | 1.x | 1.x | 1.x | peer |
-| sonner | 2 | **1.7** | 2 | 2 | 2 | — |
+| supabase-js | 2.105 | 2.118 | 2.118 | 2.118 | 2.118 | peer |
+| TanStack Query | 5.100 | 5.104 | 5.104 | 5.104 | 5.104 | — |
+| zod | 4 | 4 | 4 | 4 | 4 | peer |
+| @hookform/resolvers | 5 | 5 | 5 | 5 | 5 | peer |
+| lucide-react | 1.x | 1.x | 1.x | 1.x | 1.x | peer |
+| sonner | 2 | 2 | 2 | 2 | 2 | — |
 | date-fns | 4 | 4 | 4 | 4 | 4 | — |
 | vitest | — | 5 | 5 | 5 | — | — |
 | eslint | 10 | — | 10 | 10 | 10 | — |
@@ -95,11 +95,9 @@ GitHubu; lokální složka bez `gsync` + `npm install` může ukazovat starší.
   jen `silencio-shared` **v0.6.0**. Hub je na v0.6.1 (barva teal), review na
   v0.6.0 (klíč `'review'`), ostatní zůstávají na v0.5.1 — aditivní změna, bump netřeba.
 
-- **budgeting je o generaci zpět** (TypeScript 5.7, zod 3, lucide 0.469,
-  sonner 1.7). Odloženo, dokud Karel nedokončí vyúčtování (F2b) — upgrade by
-  se mu pletl pod rukama. Recept je stejný jako u cashflow/voicehub/set
-  2026-10-16 (viz Log): pozor hlavně na **ikony značek**, které lucide 1.0
-  vyřadil, a na formuláře se `z.coerce` (zod 4 rozlišuje vstup a výstup).
+- **budgeting dorovnán 2026-11-20** (TS 6, zod 4, resolvers 5, lucide 1, sonner 2,
+  supabase-js 2.118, TanStack 5.104) — příprava na spojení rodiny do jednoho repa.
+  Formuláře se `z.coerce` dostaly `useForm<z.input, unknown, z.output>`.
 - shared má zod / lucide / resolvers / tailwind-merge jako **peer** s rozsahy,
   které pokrývají obě generace — budgeting i ostatní appky s ním fungují.
 
