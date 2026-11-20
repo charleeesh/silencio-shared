@@ -74,7 +74,7 @@ GitHubu; lokální složka bez `gsync` + `npm install` může ukazovat starší.
 |---|---|---|---|---|---|---|
 | React | 19.2 | 19.2 | 19.2 | 19.2 | 19.2 | peer |
 | React Router | 7.18 | 7.18 | 7.18 | 7.18 | 7.18 | peer |
-| silencio-shared | **v0.6.0** | v0.5.1 | v0.5.1 | v0.5.1 | v0.5.1 | — |
+| silencio-shared | **v0.6.1** | v0.5.1 | v0.5.1 | v0.5.1 | v0.5.1 | — |
 | Vite | 8.0 | 8.0 | 8.0 | 8.0 | 8.2 | 8.0 |
 | TypeScript | 6.0 | **5.7** | 6.0 | 6.0 | 6.0 | 6.0 |
 | Tailwind | 4.3 | 4.3 | 4.3 | 4.3 | 4.3 | peer |
@@ -92,8 +92,8 @@ GitHubu; lokální složka bez `gsync` + `npm install` může ukazovat starší.
 **Vědomé rozdíly** (tučně):
 
 - **review** (od 2026-11-20, v tabulce zatím bez sloupce) má stejné verze jako set,
-  jen `silencio-shared` **v0.6.0**. Hub a review jsou na v0.6.0 (potřebují
-  klíč `'review'`), ostatní zůstávají na v0.5.1 — aditivní změna, bump netřeba.
+  jen `silencio-shared` **v0.6.0**. Hub je na v0.6.1 (barva teal), review na
+  v0.6.0 (klíč `'review'`), ostatní zůstávají na v0.5.1 — aditivní změna, bump netřeba.
 
 - **budgeting je o generaci zpět** (TypeScript 5.7, zod 3, lucide 0.469,
   sonner 1.7). Odloženo, dokud Karel nedokončí vyúčtování (F2b) — upgrade by
