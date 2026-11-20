@@ -29,7 +29,10 @@ Všechny tile-like karty (rozcestník, dashboard widgety, list items):
   `rounded-3xl` cartoonsky, 16px je sweet spot
 - `<SpotlightCard>` wrapper — mouse-tracking radiální gradient (brand-defining
   interakce, vybráno z reactbits.dev)
-- per-accent brand rgba (lime / blue / magenta / amber)
+- per-accent brand rgba (lime / blue / magenta / amber / teal)
+- **Akcenty na rozcestníku:** Budgeting lime, Cashflow blue, VoiceHub magenta,
+  Set amber, Review teal (od v0.6.1). Nová appka = nový odstín v `tokens.css`,
+  ne opakování cizí barvy (Karel 2026-11-20).
 - aktivní karta `maxOpacity={0.6}`, disabled `{0.35}`
 
 ## Žádný hero greeting

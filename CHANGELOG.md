@@ -2,6 +2,14 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
+## v0.6.1 — 2026-11-20
+
+### Added
+
+- **Pátý brand akcent `--color-silencio-teal`** (`oklch(80% 0.13 190)`,
+  RGB ≈ 47 216 208) — barva Review na rozcestníku, aby nesdílel lime
+  s Budgetingem. Aditivní, nic se nemění.
+
 ## v0.6.0 — 2026-11-20
 
 ### Added

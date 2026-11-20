@@ -25,6 +25,9 @@
   --color-silencio-blue: oklch(67% 0.2 250);
   --color-silencio-magenta: oklch(64% 0.27 350);
   --color-silencio-amber: oklch(78% 0.16 65);
+  /* Pátý akcent (v0.6.1, 2026-11-20) pro Review — odstín 190 leží nejdál od
+     ostatních čtyř (lime 130, blue 250, magenta 350, amber 65). RGB ≈ 47 216 208. */
+  --color-silencio-teal: oklch(80% 0.13 190);
 
   --color-surface: #0b0b0f;
   --color-surface-lifted: #15151b;
