@@ -20,7 +20,7 @@ na VPS `~/Webove_projekty/silencio/`. Cesty níž jsou relativní k té složce.
 | `cashflow` | cashflow, cache faktur a nákladů z Fakturoidu | `/cashflow/` | 8080 | `cashflow.*` |
 | `voicehub` | VoiceHub — dabéři, nabídky, ceník, projekty | `/voice/` | 8082 | `voicehub.*` |
 | `set` | Set — štáb, lokace, timing, call sheet | `/set/` | 8081 | `set.*` |
-| `review` | Review — přehled zisku firmy z ostatních appek (jen čte) | `/review/` | 8083 | `review.*` (plán) |
+| `review` | Review — zisk z projektů z ostatních appek (jen čte; bez provozních nákladů) | `/review/` | 8083 | `review.*` |
 | `shared` | balíček: design system, AppShell, auth obrazovky, tokeny | git tag | — | `public` (interní klient) |
 
 Každá sub-appka je vlastní Vercel projekt `silencio-<repo>` a hub ji proxuje
@@ -165,7 +165,7 @@ Pro Karla — co ty názvy znamenají, s příkladem.
 
 ### 2026-11-20 — nová appka Review, shared v0.6.0
 
-- Nová sub-appka **`review`** (přehled zisku firmy), port 8083, `/review/`.
+- Nová sub-appka **`review`** (zisk z projektů), port 8083, `/review/`.
 - **Budget** ukládá výsledek vyúčtování a fajfku „realizováno" do
   `public.budget_results` — Review odtud čte zisk.
 - **shared v0.6.0**: `'review'` v `SubAppKey`, v názvech guardu, ve volbách
