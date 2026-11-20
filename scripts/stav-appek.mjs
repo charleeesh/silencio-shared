@@ -15,7 +15,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const REPOS = ["hub", "budgeting", "cashflow", "voicehub", "set", "shared"];
+const REPOS = ["hub", "budgeting", "cashflow", "voicehub", "set", "review", "shared"];
 const PACKAGES = [
   "react",
   "react-router-dom",

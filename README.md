@@ -256,7 +256,7 @@ je zákeřnější než okamžitý fail. Proto před každým releasem:
 
 ```bash
 cd ~/Documents/Webove_projekty/silencio
-for r in hub budgeting cashflow voicehub set; do
+for r in hub budgeting cashflow voicehub set review; do
   echo "=== $r ==="; grep -rn "NazevSymbolu" $r/src 2>/dev/null
 done
 ```

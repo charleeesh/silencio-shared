@@ -3,7 +3,8 @@ import { supabase } from "@/lib/supabase";
 import { useSession } from "@/auth/useSession";
 
 export type UserRole = "admin" | "producer" | "viewer";
-export type SubAppKey = "budgeting" | "cashflow" | "voicehub" | "set";
+// "review" od v0.6.0 (Silencio Review — přehled zisku firmy, 2026-11-20).
+export type SubAppKey = "budgeting" | "cashflow" | "voicehub" | "set" | "review";
 
 export interface CurrentProfile {
   id: string;

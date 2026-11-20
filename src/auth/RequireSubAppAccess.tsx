@@ -8,14 +8,14 @@ import { HUB_HOME_URL } from "@/lib/constants";
 interface RequireSubAppAccessProps {
   /**
    * Klíč sub-appky, do které tento route patří (`'budgeting' | 'cashflow' |
-   * 'voicehub' | 'set'`). Komponent ověří, že `profile.sub_apps` ho obsahuje.
+   * 'voicehub' | 'set' | 'review'`). Komponent ověří, že `profile.sub_apps` ho obsahuje.
    * Admin (role='admin') projde vždy.
    */
   subApp: SubAppKey;
   /**
    * `appName` v AppShell pro "Přístup zamítnut" obrazovku. Defaultně se
    * odvodí z `subApp` klíče: budgeting → "Budgeting", cashflow → "Cashflow",
-   * voicehub → "VoiceHub", set → "Set".
+   * voicehub → "VoiceHub", set → "Set", review → "Review".
    */
   appName?: string;
   children: ReactNode;
@@ -26,6 +26,7 @@ const DEFAULT_APP_NAMES: Record<SubAppKey, string> = {
   cashflow: "Cashflow",
   voicehub: "VoiceHub",
   set: "Set",
+  review: "Review",
 };
 
 /**

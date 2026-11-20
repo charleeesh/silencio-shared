@@ -2,10 +2,23 @@
 
 Verzování podle [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Distribuce přes git tagy (`vX.Y.Z`), žádný npm registry.
 
-## Nevydáno — údržba závislostí a nástrojů (2026-10-16)
+## v0.6.0 — 2026-11-20
 
-Bez nového tagu — konzumenti nemusí nic bumpovat. Změny se dostanou do appek až
-s příštím releasem; výstup je ověřený, viz níž.
+### Added
+
+- **Nová sub-appka Review** (přehled zisku firmy, `/review/`): `'review'`
+  v `SubAppKey`, `DEFAULT_APP_NAMES` guardu `RequireSubAppAccess` („Review"),
+  volba **Review** v `AdminUsersPage` (hub → Uživatelé) a `'review'`
+  v `SubApp` / `getCurrentSubApp()`.
+
+Aditivní — appky na v0.5.1 fungují dál. Konzumenti bez `Record<SubAppKey, …>`
+(ověřeno grepem 2026-11-20: jen hub `HubPage` používá `SubAppKey` jako typ pole,
+ne Record), takže bump nic nerozbije. Bump potřebuje hub (volba v Uživatelích)
+a review. Release zároveň nese údržbu z 2026-10-16 níž.
+
+## Údržba závislostí a nástrojů (2026-10-16, vydáno v v0.6.0)
+
+Do v0.6.0 bez tagu. Výstup ověřený, viz níž.
 
 **Dopoledne — bezpečnostní update** (jen patch/minor): vite 6.4.2 → 6.4.4,
 react-router-dom (dev) 7.18.4, tranzitivně postcss, nanoid, source-map-js,

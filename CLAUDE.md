@@ -2,7 +2,7 @@
 
 Sdílený design system rodiny Silencio — AppShell, auth flow, ThemeProvider,
 design tokeny, UI primitivy. Konzumují ho jako git-tag dependency **všechny**
-appky: hub, budgeting, cashflow, voicehub, set. **Jediný public repo rodiny.**
+appky: hub, budgeting, cashflow, voicehub, set, review. **Jediný public repo rodiny.**
 
 ## Příkazy
 
@@ -35,7 +35,7 @@ zastaralé.
 
 **Release rozbije konzumenty se zpožděním.** Appka na starém tagu jede dál a
 spadne až při svém příštím bumpu. Proto **před releasem grepni konzumenty** na
-měněný symbol (`for r in hub budgeting cashflow voicehub set; do grep -rn Symbol
+měněný symbol (`for r in hub budgeting cashflow voicehub set review; do grep -rn Symbol
 $r/src; done`) a řiď se tabulkou „Co nesmí rozbít update" v README. Aditivní
 změna = bezpečná; nový povinný prop / přejmenování / změna chování = breaking.
 

@@ -20,6 +20,7 @@ na VPS `~/Webove_projekty/silencio/`. Cesty níž jsou relativní k té složce.
 | `cashflow` | cashflow, cache faktur a nákladů z Fakturoidu | `/cashflow/` | 8080 | `cashflow.*` |
 | `voicehub` | VoiceHub — dabéři, nabídky, ceník, projekty | `/voice/` | 8082 | `voicehub.*` |
 | `set` | Set — štáb, lokace, timing, call sheet | `/set/` | 8081 | `set.*` |
+| `review` | Review — přehled zisku firmy z ostatních appek (jen čte) | `/review/` | 8083 | `review.*` (plán) |
 | `shared` | balíček: design system, AppShell, auth obrazovky, tokeny | git tag | — | `public` (interní klient) |
 
 Každá sub-appka je vlastní Vercel projekt `silencio-<repo>` a hub ji proxuje
@@ -119,6 +120,7 @@ nic z toho se nedostane do appky v prohlížeči):
 | **Nová složka v `public/` appky** | rewrite ve `vercel.json` té appky **před** catch-all, jinak vrací `index.html` s HTTP 200 |
 | **Env proměnná** | v každém Vercel projektu zvlášť — nesdílí se |
 | **Schéma databáze** | Supabase MCP `apply_migration`, popis do `docs/architektura.md` appky |
+| **Výpočet zisku v Budgetu** (`buildForecast`) nebo tabulka `public.budget_results` | Review ten zisk čte, nepočítá — změna se v Review projeví sama; struktura tabulky se mění i v `review/docs/architektura.md` |
 | **Dev port** | musí být unikátní — tabulka Appky + `vite.config.ts` + `.claude/launch.json` appky |
 
 ## Slovníček pojmů
@@ -155,6 +157,15 @@ Pro Karla — co ty názvy znamenají, s příkladem.
 | **dev server / port** | appka puštěná u tebe na počítači na adrese `localhost:<port>` | `localhost:5173/budget/` |
 
 ## Log změn napříč appkami
+
+### 2026-11-20 — nová appka Review, shared v0.6.0
+
+- Nová sub-appka **`review`** (přehled zisku firmy), port 8083, `/review/`.
+- **Budget** ukládá výsledek vyúčtování a fajfku „realizováno" do
+  `public.budget_results` — Review odtud čte zisk.
+- **shared v0.6.0**: `'review'` v `SubAppKey`, v názvech guardu, ve volbách
+  Uživatelé a v `getCurrentSubApp()`. Aditivní; ostatní appky můžou zůstat
+  na v0.5.1, bump potřebuje hub (Uživatelé) a review.
 
 ### 2026-10-16 — sjednocení verzí, mapa appek
 

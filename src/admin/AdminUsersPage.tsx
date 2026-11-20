@@ -31,6 +31,7 @@ const SUB_APP_OPTIONS: { key: SubAppKey; label: string }[] = [
   { key: "cashflow", label: "Cashflow" },
   { key: "voicehub", label: "VoiceHub" },
   { key: "set", label: "Set" },
+  { key: "review", label: "Review" },
 ];
 
 const ROLE_OPTIONS: { value: UserRole; label: string }[] = [
