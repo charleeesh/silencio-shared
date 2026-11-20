@@ -125,6 +125,7 @@ nic z toho se nedostane do appky v prohlížeči):
 | **Env proměnná** | v každém Vercel projektu zvlášť — nesdílí se |
 | **Schéma databáze** | Supabase MCP `apply_migration`, popis do `docs/architektura.md` appky |
 | **Výpočet zisku v Budgetu** (`buildForecast`) nebo tabulka `public.budget_results` | Review ten zisk čte, nepočítá — změna se v Review projeví sama; struktura tabulky se mění i v `review/docs/architektura.md` |
+| **Výpočet zisku ve VoiceHubu** (`budgetSummary`, managing fee, hodiny zvukaře) nebo tabulka `voicehub.project_results` | totéž — Review čte `project_results`; struktura tabulky i v `review/docs/architektura.md` a funkci `review.profit_projects` |
 | **Dev port** | musí být unikátní — tabulka Appky + `vite.config.ts` + `.claude/launch.json` appky |
 
 ## Slovníček pojmů
